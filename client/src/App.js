@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-import SimpleStorageContract from "./contracts/SimpleStorage.json";
+import Lottery from "./contracts/Lottery.json";
 import { Input, Label } from 'semantic-ui-react'
 import getWeb3 from "./utils/getWeb3";
 
 import "./App.css";
+import EnterLotteryForm from "./components/EnterLotteryForm";
 
 class App extends Component {
-  state = { storageValue: 0, web3: null, accounts: null, contract: null };
+  state = { lotteryBalance: 0, web3: null, accounts: null, contract: null };
 
   componentDidMount = async () => {
     try {
@@ -18,15 +19,15 @@ class App extends Component {
 
       // Get the contract instance.
       const networkId = await web3.eth.net.getId();
-      const deployedNetwork = SimpleStorageContract.networks[networkId];
+      const deployedNetwork = Lottery.networks[networkId];
       const instance = new web3.eth.Contract(
-        SimpleStorageContract.abi,
+          Lottery.abi,
         deployedNetwork && deployedNetwork.address,
       );
 
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.
-      this.setState({ web3, accounts, contract: instance }, this.runExample);
+      this.setState({ web3, accounts, contract: instance }, this.loadContractDetails);
 
     } catch (error) {
       // Catch any errors for any of the above operations.
@@ -37,22 +38,22 @@ class App extends Component {
     }
   };
 
-  runExample = async () => {
-    const { accounts, contract } = this.state;
+  loadContractDetails = async () => {
+    const { web3, accounts, contract } = this.state;
 
     // Stores a given value, 5 by default.
-    await contract.methods.set(5).send({ from: accounts[0] });
+    // await contract.methods.set(5).send({ from: accounts[0] });
 
     // Get the value from the contract to prove it worked.
-    const response = await contract.methods.get().call();
+    const balance = await contract.methods.getBalance().call();
 
     // Update state with the result.
-    this.setState({ storageValue: response });
+    this.setState({ lotteryBalance: web3.utils.fromWei(balance, 'ether')});
   };
 
   enterLottery = (event) => {
     console.log('enterLottery', event)
-  }
+  };
 
   render() {
     if (!this.state.web3) {
@@ -70,10 +71,9 @@ class App extends Component {
         <p>
           Try changing the value stored on <strong>line 40</strong> of App.js.
         </p>
-        <div>The stored value is: {this.state.storageValue}</div>
+        <div>Lottery balance is: {this.state.lotteryBalance}</div>
         <div>
-          <Input action={{content: 'Enter!', icon: 'ethereum', onClick: this.enterLottery}} labelPosition='right' type='text' placeholder='Amount in ether'>
-          </Input>
+            <EnterLotteryForm web3={this.state.web3} contract={this.state.contract} accounts={this.state.accounts} ></EnterLotteryForm>
         </div>
       </div>
     );
