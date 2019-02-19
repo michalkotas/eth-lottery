@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import SimpleStorageContract from "./contracts/SimpleStorage.json";
+import { Input, Label } from 'semantic-ui-react'
 import getWeb3 from "./utils/getWeb3";
 
 import "./App.css";
@@ -26,6 +27,7 @@ class App extends Component {
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.
       this.setState({ web3, accounts, contract: instance }, this.runExample);
+
     } catch (error) {
       // Catch any errors for any of the above operations.
       alert(
@@ -48,6 +50,10 @@ class App extends Component {
     this.setState({ storageValue: response });
   };
 
+  enterLottery = (event) => {
+    console.log('enterLottery', event)
+  }
+
   render() {
     if (!this.state.web3) {
       return <div>Loading Web3, accounts, and contract...</div>;
@@ -65,6 +71,10 @@ class App extends Component {
           Try changing the value stored on <strong>line 40</strong> of App.js.
         </p>
         <div>The stored value is: {this.state.storageValue}</div>
+        <div>
+          <Input action={{content: 'Enter!', icon: 'ethereum', onClick: this.enterLottery}} labelPosition='right' type='text' placeholder='Amount in ether'>
+          </Input>
+        </div>
       </div>
     );
   }
