@@ -5,6 +5,7 @@ import getWeb3 from "./utils/getWeb3";
 import "./App.css";
 import EnterLotteryForm from "./components/EnterLotteryForm";
 import AccountSelect from "./components/AccountSelect";
+import PickWinner from "./components/PickWinner";
 
 class App extends Component {
     state = {
@@ -84,6 +85,11 @@ class App extends Component {
         await this.loadPlayers();
     };
 
+    onWinnerPicked = async () => {
+        await this.loadBalance();
+        await this.loadPlayers();
+    };
+
     render() {
         if (!this.state.web3) {
             return <div>Loading Web3, accounts, and contract...</div>;
@@ -97,9 +103,13 @@ class App extends Component {
                     onChange={this.onAccountChange}>
                 </AccountSelect>
                 {this.state.owner === this.state.selectedAccount &&
-                <p>You are contract owner</p>
+                <PickWinner
+                    contract={this.state.contract}
+                    account={this.state.selectedAccount}
+                    onWinnerPicked={this.onWinnerPicked}>>
+                </PickWinner>
                 }
-                <h1>Good to Go!</h1>
+                <h1>Win some real money!</h1>
                 <p>
                     Contract owner is {this.state.owner}
                 </p>
