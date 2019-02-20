@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Label } from 'semantic-ui-react';
 
 class AccountSelect extends Component {
 
@@ -10,7 +9,7 @@ class AccountSelect extends Component {
     render() {
       return (
           <div>
-              <Label>Select account</Label>
+              <div className="ui sub header">Select account</div>
               <select className="ui dropdown" onChange={this.onChange} value={this.props.account}>
                   {this.props.accounts.map((e, key) => {
                       return <option key={key} value={e}>{key+1}: {e}</option>;

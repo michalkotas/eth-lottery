@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Input, Message, Button } from 'semantic-ui-react';
+import { Form, Input, Message } from 'semantic-ui-react';
 
 class EnterLotteryForm extends Component {
   state = {
@@ -27,6 +27,7 @@ class EnterLotteryForm extends Component {
                 from: account,
                 value: web3.utils.toWei(this.state.value, 'ether')
             });
+            this.props.onEntered();
         } catch (error) {
             this.setState({ errorMessage: error.message });
         }
@@ -41,6 +42,7 @@ class EnterLotteryForm extends Component {
               <Form.Field>
                   <Input
                       action={{loading: this.state.loading, content: 'Enter!', icon: 'ethereum', onClick: this.enterLottery}}
+                      value={this.state.value}
                       onChange={event => this.setState({ value: event.target.value })}
                       labelPosition='right'
                       type='text'
