@@ -17,14 +17,14 @@ class EnterLotteryForm extends Component {
   };
 
     onSubmit = async event => {
-        const {web3, contract, accounts} = this.props;
+        const {web3, contract, account} = this.props;
         event.preventDefault();
 
         this.setState({ loading: true, errorMessage: '' });
 
         try {
             await contract.methods.enter().send({
-                from: accounts[0],
+                from: account,
                 value: web3.utils.toWei(this.state.value, 'ether')
             });
         } catch (error) {

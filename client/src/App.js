@@ -8,7 +8,13 @@ import EnterLotteryForm from "./components/EnterLotteryForm";
 import AccountSelect from "./components/AccountSelect";
 
 class App extends Component {
-  state = { lotteryBalance: 0, web3: null, accounts: null, contract: null };
+  state = {
+      lotteryBalance: 0,
+      web3: null,
+      accounts: null,
+      selectedAccount: '',
+      contract: null
+  };
 
   componentDidMount = async () => {
     try {
@@ -56,13 +62,17 @@ class App extends Component {
     console.log('enterLottery', event)
   };
 
+  onAccountChange = (account) => {
+      this.setState({selectedAccount: account});
+  };
+
   render() {
     if (!this.state.web3) {
       return <div>Loading Web3, accounts, and contract...</div>;
     }
     return (
       <div className="App">
-          <AccountSelect accounts={this.state.accounts}></AccountSelect>
+          <AccountSelect account={this.state.selectedAccount} accounts={this.state.accounts} onChange={this.onAccountChange}></AccountSelect>
         <h1>Good to Go!</h1>
         <p>Your Truffle Box is installed and ready.</p>
         <h2>Smart Contract Example</h2>
@@ -71,11 +81,11 @@ class App extends Component {
           a stored value of 5 (by default).
         </p>
         <p>
-          Try changing the value stored on <strong>line 40</strong> of App.js.
+          Selected account is {this.state.selectedAccount}
         </p>
         <div>Lottery balance is: {this.state.lotteryBalance}</div>
         <div>
-            <EnterLotteryForm web3={this.state.web3} contract={this.state.contract} accounts={this.state.accounts} ></EnterLotteryForm>
+            <EnterLotteryForm web3={this.state.web3} contract={this.state.contract} account={this.state.selectedAccount} ></EnterLotteryForm>
         </div>
       </div>
     );
