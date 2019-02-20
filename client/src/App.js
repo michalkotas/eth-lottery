@@ -5,6 +5,7 @@ import getWeb3 from "./utils/getWeb3";
 
 import "./App.css";
 import EnterLotteryForm from "./components/EnterLotteryForm";
+import AccountSelect from "./components/AccountSelect";
 
 class App extends Component {
   state = { lotteryBalance: 0, web3: null, accounts: null, contract: null };
@@ -61,6 +62,7 @@ class App extends Component {
     }
     return (
       <div className="App">
+          <AccountSelect accounts={this.state.accounts}></AccountSelect>
         <h1>Good to Go!</h1>
         <p>Your Truffle Box is installed and ready.</p>
         <h2>Smart Contract Example</h2>
