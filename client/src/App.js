@@ -97,33 +97,57 @@ class App extends Component {
 
         return (
             <div className="App">
-                <AccountSelect
-                    account={this.state.selectedAccount}
-                    accounts={this.state.accounts}
-                    onChange={this.onAccountChange}>
-                </AccountSelect>
-                {this.state.owner === this.state.selectedAccount &&
-                <PickWinner
-                    contract={this.state.contract}
-                    account={this.state.selectedAccount}
-                    onWinnerPicked={this.onWinnerPicked}>>
-                </PickWinner>
-                }
-                <h1>Win some real money!</h1>
-                <p>
-                    Contract owner is {this.state.owner}
-                </p>
-                <p>
-                    There are {this.state.players.length} players
-                </p>
-                <div>Lottery balance is: {this.state.lotteryBalance} ether</div>
-                <div>
-                    <EnterLotteryForm
-                        web3={this.state.web3}
-                        contract={this.state.contract}
+                <div className="ui container">
+                    <AccountSelect
                         account={this.state.selectedAccount}
-                        onEntered={this.onEntered}>
-                    </EnterLotteryForm>
+                        accounts={this.state.accounts}
+                        onChange={this.onAccountChange}>
+                    </AccountSelect>
+                    <div className="ui raised padded text container segment">
+                        <h2 className="ui header">Super Hyper Ether Lottery</h2>
+                        <div className="ui divider"></div>
+                        <div className="ui middle aligned grid">
+                            <div className="four wide column">
+                                <div className="ui small statistic">
+                                    <div className="value">
+                                        <i className="users grey icon"></i> {this.state.players.length}
+                                    </div>
+                                    <div className="label">
+                                        Players
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="four wide column">
+                                <div className="ui small statistic">
+                                    <div className="value">
+                                        <i className="ethereum grey icon"></i> {this.state.lotteryBalance}
+                                    </div>
+                                    <div className="label">
+                                        To win
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="eight wide column">
+                                <div>
+                                    <EnterLotteryForm
+                                        web3={this.state.web3}
+                                        contract={this.state.contract}
+                                        account={this.state.selectedAccount}
+                                        onEntered={this.onEntered}>
+                                    </EnterLotteryForm>
+                                </div>
+                            </div>
+                            <div className="sixteen wide column">
+                                {this.state.owner === this.state.selectedAccount &&
+                                <PickWinner
+                                    contract={this.state.contract}
+                                    account={this.state.selectedAccount}
+                                    onWinnerPicked={this.onWinnerPicked}>>
+                                </PickWinner>
+                                }
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         );
