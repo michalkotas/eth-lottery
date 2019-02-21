@@ -98,7 +98,7 @@ class App extends Component {
         return (
             <div className="App">
                 <div className="ui container">
-                    {this.accounts && this.accounts.length &&
+                    {this.state.accounts && this.state.accounts.length &&
                         <AccountSelect
                             account={this.state.selectedAccount}
                             accounts={this.state.accounts}
