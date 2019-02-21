@@ -98,11 +98,13 @@ class App extends Component {
         return (
             <div className="App">
                 <div className="ui container">
-                    <AccountSelect
-                        account={this.state.selectedAccount}
-                        accounts={this.state.accounts}
-                        onChange={this.onAccountChange}>
-                    </AccountSelect>
+                    {this.accounts && this.accounts.length &&
+                        <AccountSelect
+                            account={this.state.selectedAccount}
+                            accounts={this.state.accounts}
+                            onChange={this.onAccountChange}>
+                        </AccountSelect>
+                    }
                     <div className="ui raised padded text container segment">
                         <h2 className="ui header">Super Hyper Ether Lottery</h2>
                         <div className="ui divider"></div>

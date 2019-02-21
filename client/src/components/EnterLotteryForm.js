@@ -43,6 +43,7 @@ class EnterLotteryForm extends Component {
                   <Input
                       action={{loading: this.state.loading, content: 'Enter!', icon: 'ethereum', onClick: this.enterLottery}}
                       value={this.state.value}
+                      disabled={this.state.loading}
                       onChange={event => this.setState({ value: event.target.value })}
                       labelPosition='right'
                       type='text'
