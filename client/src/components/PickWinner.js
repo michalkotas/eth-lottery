@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Message} from "semantic-ui-react";
+import { Message, Button } from "semantic-ui-react";
 
 class PickWinner extends Component {
     state = {
@@ -29,11 +29,12 @@ class PickWinner extends Component {
     render() {
         return (
             <div>
-                <button className="ui labeled icon button"
-                    onClick={this.onClick}>
+                <Button className="ui labeled icon button"
+                        loading={this.state.loading}
+                        onClick={this.onClick}>
                     <i className="share square icon"></i>
                     Pick winner!
-                </button>
+                </Button>
                 <Message hidden={this.state.message.length === 0} positive header="Yeah!" content={this.state.message} />
                 <Message hidden={!this.state.errorMessage} error header="Oops!" content={this.state.errorMessage} />
             </div>
