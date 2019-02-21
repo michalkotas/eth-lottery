@@ -8,7 +8,7 @@ class PickWinner extends Component {
         loading: false
     };
 
-    onClick = async event => {
+    onClick = async () => {
         const {contract, account} = this.props;
 
         this.setState({ loading: true, errorMessage: '', message: '' });

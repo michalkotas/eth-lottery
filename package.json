@@ -1,0 +1,25 @@
+{
+  "name": "eth-lottery",
+  "version": "1.0.0",
+  "description": "Lottery based on Ethereum Solidity smart contract",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michalkotas/eth-lottery.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/michalkotas/eth-lottery/issues"
+  },
+  "homepage": "https://github.com/michalkotas/eth-lottery#readme",
+  "dependencies": {
+    "truffle-hdwallet-provider": "^1.0.4"
+  }
+}
